@@ -1,5 +1,6 @@
 
 using ChatApp.Hubs;
+using ChatApp.Service;
 using Microsoft.AspNetCore.SignalR;
 
 namespace ChatApp
@@ -13,9 +14,21 @@ namespace ChatApp
             // Add services to the container.
             builder.Services.AddSignalR();
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddCors(opt =>
+            {
+                opt.AddPolicy("chat-ui", builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000")
+                           .AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .AllowCredentials();
+                });
+            });
+
+            builder.Services.AddSingleton<SharedDb>();
 
             var app = builder.Build();
 
@@ -25,12 +38,14 @@ namespace ChatApp
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
-            app.UseHttpsRedirection();
+            else
+            {
+                app.UseHttpsRedirection(); // Only enable HTTPS redirection in production
+            }
 
             app.UseAuthorization();
 
-            // Endpoint 
+            app.UseCors("chat-ui"); // Place before MapHub
             app.MapHub<ChatHub>("/Chat");
 
             app.MapControllers();
