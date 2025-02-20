@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Box } from "@mui/material";
+import WaitingRoom from "./components/WaitingRoom";
+import { useState } from "react";
+import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [connection, setConnection] = useState();
+
+  const joinChatRoom = async (username: string, chatroom: string) => {
+    try {
+      // Initiate connection
+      const conn = new HubConnectionBuilder()
+        .withUrl("https://localhost:7098")
+        .configureLogging(LogLevel.Information)
+        .build();
+
+      // Set up connection handler
+      conn.on("JoinSpecificChatRoom", (username: string, msg: string) => {
+        console.log("msg:", msg);
+      });
+
+      // Start connection
+      await conn.start();
+
+      // Invoke the endpoint
+      await conn.invoke("JoinSpecificChatRoom", { username, chatroom });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Box>
+      <div>Welcome to chat app!</div>
+      <WaitingRoom joinChatRoom={joinChatRoom} />
+    </Box>
+  );
 }
 
 export default App
