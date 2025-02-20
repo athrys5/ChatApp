@@ -1,28 +1,46 @@
 import { Box } from "@mui/material";
 import WaitingRoom from "./components/WaitingRoom";
 import { useState } from "react";
-import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import {
+  HubConnection,
+  HubConnectionBuilder,
+  LogLevel,
+} from "@microsoft/signalr";
+import { IMessage } from "./interfaces/GenericInterfaces";
+import ChatRoom from "./components/ChatRoom";
 
 function App() {
-  const [connection, setConnection] = useState();
+  const [connection, setConnection] = useState<HubConnection>();
+  const [messages, setMessages] = useState<IMessage[]>([]);
 
   const joinChatRoom = async (username: string, chatroom: string) => {
     try {
       // Initiate connection
-      const conn = new HubConnectionBuilder()
+      const connection = new HubConnectionBuilder()
         .withUrl("http://localhost:5038/chat")
         .configureLogging(LogLevel.Information)
         .build();
+
       // Set up connection handler
-      conn.on("JoinSpecificChatRoom", (username: string, msg: string) => {
-        console.log("msg:", msg);
+      connection.on("JoinSpecificChatRoom", (username: string, msg: string) => {
+        setMessages((prevMessages) => [...prevMessages, { username, msg }]);
       });
 
+      // Receive messages to state
+      connection.on(
+        "ReceiveSpecificMessage",
+        (username: string, msg: string) => {
+          setMessages((prevMessages) => [...prevMessages, { username, msg }]);
+        }
+      );
+
       // Start connection
-      await conn.start();
+      await connection.start();
 
       // Invoke the endpoint
-      await conn.invoke("JoinSpecificChatRoom", { username, chatroom });
+      await connection.invoke("JoinSpecificChatRoom", { username, chatroom });
+
+      setConnection(connection);
     } catch (e) {
       console.log(e);
     }
@@ -31,7 +49,11 @@ function App() {
   return (
     <Box>
       <div>Welcome to chat app!</div>
-      <WaitingRoom joinChatRoom={joinChatRoom} />
+      {!connection ? (
+        <WaitingRoom joinChatRoom={joinChatRoom} />
+      ) : (
+        <ChatRoom messages={messages} />
+      )}
     </Box>
   );
 }

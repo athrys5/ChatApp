@@ -33,10 +33,13 @@ namespace ChatApp.Hubs
         public async Task SendMessage(string msg)
         {
             if (_shared.connections.TryGetValue(Context.ConnectionId, out UserConnection connection))
-            { 
-                //When i want to send the message, take receiver connectionId out and use it to send the msg
+            {
                 await Clients.Group(connection.ChatRoom)
                     .SendAsync("ReceiveSpecificMessage", connection.Username, msg);
+            }
+            else
+            {
+                Console.WriteLine("User connection not found.");
             }
         }
     }
