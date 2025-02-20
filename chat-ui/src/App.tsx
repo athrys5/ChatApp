@@ -8,6 +8,7 @@ import {
 } from "@microsoft/signalr";
 import { IMessage } from "./interfaces/GenericInterfaces";
 import ChatRoom from "./components/ChatRoom";
+import SendMessage from "./components/SendMessage";
 
 function App() {
   const [connection, setConnection] = useState<HubConnection>();
@@ -46,13 +47,25 @@ function App() {
     }
   };
 
+  const sendMessage = async (message: string) => {
+    try {
+      // Send message
+      await connection?.invoke("SendMessage", message);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <Box>
       <div>Welcome to chat app!</div>
       {!connection ? (
         <WaitingRoom joinChatRoom={joinChatRoom} />
       ) : (
-        <ChatRoom messages={messages} />
+        <div>
+          <ChatRoom messages={messages} />
+          <SendMessage sendMessage={sendMessage} />
+        </div>
       )}
     </Box>
   );
