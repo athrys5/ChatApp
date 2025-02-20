@@ -1,4 +1,5 @@
 
+using ChatApp.Hubs;
 using Microsoft.AspNetCore.SignalR;
 
 namespace ChatApp
@@ -10,13 +11,11 @@ namespace ChatApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddSignalR();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
-            builder.Services.AddSignalR();
 
             var app = builder.Build();
 
@@ -31,14 +30,8 @@ namespace ChatApp
 
             app.UseAuthorization();
 
-            app.MapPost("broadcast", async (string message, IHubContext<ChatHub, IChatClient> context) =>
-            {
-                await context.Clients.All.ReceiveMessage(message);
-
-                return Results.NoContent();
-            });
-
-            app.MapHub<ChatHub>("chat-hub");
+            // Endpoint 
+            app.MapHub<ChatHub>("/Chat");
 
             app.MapControllers();
 
