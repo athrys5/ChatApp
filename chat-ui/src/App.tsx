@@ -10,10 +10,9 @@ function App() {
     try {
       // Initiate connection
       const conn = new HubConnectionBuilder()
-        .withUrl("https://localhost:7098")
+        .withUrl("http://localhost:5038/chat")
         .configureLogging(LogLevel.Information)
         .build();
-
       // Set up connection handler
       conn.on("JoinSpecificChatRoom", (username: string, msg: string) => {
         console.log("msg:", msg);
@@ -37,4 +36,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
