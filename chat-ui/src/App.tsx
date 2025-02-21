@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, ThemeProvider, useColorScheme } from "@mui/material";
 import { useState } from "react";
 import {
   HubConnection,
@@ -9,8 +9,12 @@ import { IMessage } from "./interfaces/GenericInterfaces";
 import ChatRoom from "./components/ChatRoom";
 import SendMessage from "./components/SendMessage";
 import Login from "./components/Login";
+import theme from "./themes/theme";
+import ModeSwitcher from "./components/ModeSwitcher";
 
 function App() {
+  //const { mode, setMode } = useColorScheme();
+
   const [connection, setConnection] = useState<HubConnection>();
   const [messages, setMessages] = useState<IMessage[]>([]);
 
@@ -57,17 +61,20 @@ function App() {
   };
 
   return (
-    <Box>
-      <div>Welcome to chat app!</div>
-      {!connection ? (
-        <Login joinChatRoom={joinChatRoom} />
-      ) : (
-        <div>
-          <ChatRoom messages={messages} />
-          <SendMessage sendMessage={sendMessage} />
-        </div>
-      )}
-    </Box>
+    <ThemeProvider theme={theme}>
+      <Box>
+        <div>Welcome to chat app!</div>
+        <ModeSwitcher />
+        {!connection ? (
+          <Login joinChatRoom={joinChatRoom} />
+        ) : (
+          <div>
+            <ChatRoom messages={messages} />
+            <SendMessage sendMessage={sendMessage} />
+          </div>
+        )}
+      </Box>
+    </ThemeProvider>
   );
 }
 

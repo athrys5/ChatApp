@@ -38,7 +38,7 @@ const Login: React.FC<ILoginProps> = ({ joinChatRoom }) => {
           <AccountCircleIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>
-          Sign in
+          Login
         </Typography>
         <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
@@ -48,6 +48,14 @@ const Login: React.FC<ILoginProps> = ({ joinChatRoom }) => {
             id='username'
             label='Username'
             name='username'
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <TextField
+            margin='normal'
+            fullWidth
+            id='password'
+            label='Password'
+            name='password'
             onChange={(e) => setUsername(e.target.value)}
           />
           <TextField
@@ -67,6 +75,7 @@ const Login: React.FC<ILoginProps> = ({ joinChatRoom }) => {
           >
             Sign In
           </Button>
+          <Typography color='primary'>Register here</Typography>
         </Box>
       </Box>
     </Container>
