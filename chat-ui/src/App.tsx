@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import WaitingRoom from "./components/WaitingRoom";
 import { useState } from "react";
 import {
   HubConnection,
@@ -9,6 +8,7 @@ import {
 import { IMessage } from "./interfaces/GenericInterfaces";
 import ChatRoom from "./components/ChatRoom";
 import SendMessage from "./components/SendMessage";
+import Login from "./components/Login";
 
 function App() {
   const [connection, setConnection] = useState<HubConnection>();
@@ -60,7 +60,7 @@ function App() {
     <Box>
       <div>Welcome to chat app!</div>
       {!connection ? (
-        <WaitingRoom joinChatRoom={joinChatRoom} />
+        <Login joinChatRoom={joinChatRoom} />
       ) : (
         <div>
           <ChatRoom messages={messages} />
