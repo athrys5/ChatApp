@@ -1,4 +1,4 @@
-import { Box, ThemeProvider, useColorScheme } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/material";
 import { useState } from "react";
 import {
   HubConnection,
@@ -63,7 +63,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box>
-        <div>Welcome to chat app!</div>
         <ModeSwitcher />
         {!connection ? (
           <Login joinChatRoom={joinChatRoom} />

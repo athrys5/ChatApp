@@ -1,16 +1,8 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  CssBaseline,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, CssBaseline, Typography } from "@mui/material";
 import { useState } from "react";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MessageIcon from "../icons/MessageIcon";
-
+import LoginTextField from "./CustomTextField";
+import { standardButtonStyle } from "../styles/styles";
 interface ILoginProps {
   joinChatRoom: (username: string, chatroom: string) => Promise<void>;
 }
@@ -33,7 +25,6 @@ const Login: React.FC<ILoginProps> = ({ joinChatRoom }) => {
           boxSizing: "border-box",
           border: "1px solid transparent",
           borderRadius: "1em",
-          backgroundColor: "",
         }}
       >
         <Box
@@ -44,36 +35,24 @@ const Login: React.FC<ILoginProps> = ({ joinChatRoom }) => {
           }}
         >
           <MessageIcon width='200' height='200' currentColor='#8D51E1' />
+          <Typography variant='h3' fontWeight='500'>
+            Sign in
+          </Typography>
 
-          <Typography variant='h2'>Login</Typography>
           <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              id='username'
-              label='Username'
-              name='username'
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              name='chatroom'
-              label='Chatroom'
-              id='chatroom'
-              onChange={(e) => setChatroom(e.target.value)}
-            />
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Typography color='primary'>Register here</Typography>
+            <LoginTextField onChange={setUsername} inputName='username' />
+            <LoginTextField onChange={setChatroom} inputName='chatroom' />
+            <Box sx={{ mt: 2 }}>
+              <Button
+                type='submit'
+                variant='contained'
+                fullWidth
+                sx={standardButtonStyle}
+              >
+                <Typography fontWeight='500'>Join</Typography>
+              </Button>
+            </Box>
+            {/*   <Typography color='primary'>Register here</Typography> */}
           </Box>
         </Box>
       </Box>
