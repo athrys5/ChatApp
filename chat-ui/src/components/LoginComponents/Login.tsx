@@ -1,8 +1,8 @@
 import { Box, Button, Container, CssBaseline, Typography } from "@mui/material";
 import { useState } from "react";
-import MessageIcon from "../icons/MessageIcon";
-import LoginTextField from "./CustomTextField";
-import { standardButtonStyle } from "../styles/styles";
+import MessageIcon from "../../icons/MessageIcon";
+import LoginTextField from "./LoginTextField";
+import { standardButtonStyle } from "../../styles/styles";
 interface ILoginProps {
   joinChatRoom: (username: string, chatroom: string) => Promise<void>;
 }

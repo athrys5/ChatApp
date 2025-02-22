@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import { loginTextFieldStyle } from "../styles/styles";
+import { loginTextFieldStyle } from "../../styles/styles";
 
 interface ICustomTextFieldProps {
   inputName: string;

@@ -8,7 +8,7 @@ import {
 import { IMessage } from "./interfaces/GenericInterfaces";
 import ChatRoom from "./components/ChatRoom";
 import SendMessage from "./components/SendMessage";
-import Login from "./components/Login";
+import Login from "./components/LoginComponents/Login";
 import theme from "./themes/theme";
 import ModeSwitcher from "./components/ModeSwitcher";
 
