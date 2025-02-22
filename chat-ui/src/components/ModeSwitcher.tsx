@@ -22,14 +22,18 @@ function ModeSwitcher() {
         width: 40,
         height: 40,
         borderRadius: "50%",
-        backgroundColor: theme.palette.mode === "dark" ? "white" : "black",
-        color: theme.palette.mode === "dark" ? "black" : "white",
+        backgroundColor: "primary.main",
+        color: "background.default",
         boxShadow: 3,
-        transition: "background-color 0.3s, color 0.3s", // Transizione fluida
+        transition: "background-color 0.3s, color 0.3s, transform 0.3s",
+        "&:hover": {
+          backgroundColor: "primary.dark",
+          transform: "scale(1.1)",
+        },
       }}
       onClick={() => setMode(mode === "light" ? "dark" : "light")}
     >
-      {theme.palette.mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
+      {theme.palette.mode === "dark" ? <DarkModeIcon /> : <LightModeIcon />}
     </Box>
   );
 }
