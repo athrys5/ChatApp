@@ -1,25 +1,41 @@
+import { Box, useTheme } from "@mui/material";
 import { IMessage } from "../interfaces/GenericInterfaces";
 
 interface IMessageContainerProps {
   messages: IMessage[];
+  username: string;
 }
 
-const MessageContainer: React.FC<IMessageContainerProps> = ({ messages }) => {
-  console.log(messages);
+const MessageContainer: React.FC<IMessageContainerProps> = ({
+  messages,
+  username,
+}) => {
+  const theme = useTheme();
   return (
-    <div>
+    <Box>
       {messages.map((msg, index) => {
         return (
-          <table>
-            <tr key={index}>
-              <td>
-                {msg.msg} - {msg.username}
-              </td>
-            </tr>
-          </table>
+          <Box
+            key={index}
+            sx={{
+              display: "flex",
+              flex: 1,
+              backgroundColor: theme.palette.primary.main,
+              height: "3rem",
+              borderRadius: "1.5rem",
+              padding: "10px",
+              margin: "10px",
+              minWidth: "15rem",
+              maxWidth: "30rem",
+              justifySelf:
+                username === msg.username ? "flex-end" : "flex-start",
+            }}
+          >
+            {msg.msg} - {msg.username}
+          </Box>
         );
       })}
-    </div>
+    </Box>
   );
 };
 

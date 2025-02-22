@@ -12,8 +12,8 @@ import theme from "./themes/theme";
 import ModeSwitcher from "./components/ModeSwitcher";
 
 function App() {
-  //const { mode, setMode } = useColorScheme();
-
+  const [username, setUsername] = useState<string>("");
+  const [chatroom, setChatroom] = useState<string>("");
   const [connection, setConnection] = useState<HubConnection>();
   const [messages, setMessages] = useState<IMessage[]>([]);
 
@@ -49,7 +49,7 @@ function App() {
       console.log(e);
     }
   };
-
+  console.log(messages);
   const sendMessage = async (message: string) => {
     try {
       // Send message
@@ -65,9 +65,20 @@ function App() {
       <Box>
         <ModeSwitcher />
         {!connection ? (
-          <Login joinChatRoom={joinChatRoom} />
+          <Login
+            joinChatRoom={joinChatRoom}
+            username={username}
+            chatroom={chatroom}
+            setUsername={setUsername}
+            setChatroom={setChatroom}
+          />
         ) : (
-          <ChatRoom messages={messages} sendMessage={sendMessage} />
+          <ChatRoom
+            messages={messages}
+            sendMessage={sendMessage}
+            username={username}
+            chatroom={chatroom}
+          />
         )}
       </Box>
     </ThemeProvider>
