@@ -18,7 +18,6 @@ const Login: React.FC<ILoginProps> = ({ joinChatRoom }) => {
 
   return (
     <Container component='main' maxWidth='xs'>
-      <CssBaseline />
       <Box
         sx={{
           padding: "32px",

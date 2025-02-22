@@ -1,14 +1,8 @@
-import {
-  Button,
-  FormControl,
-  FormGroup,
-  Input,
-  InputLabel,
-} from "@mui/material";
+import { Box, Grid2 } from "@mui/material";
 import { useState } from "react";
 
 interface ISendMessageProps {
-  sendMessage: any;
+  sendMessage: (message: string) => Promise<void>;
 }
 
 const SendMessage: React.FC<ISendMessageProps> = ({ sendMessage }) => {
@@ -19,29 +13,12 @@ const SendMessage: React.FC<ISendMessageProps> = ({ sendMessage }) => {
     sendMessage(msg);
     setMsg("");
   };
-  return (
-    <div>
-      <form onSubmit={(e) => handleSubmitForm(e)}>
-        <FormControl component='fieldset'>
-          <div className='d-flex-c'>
-            <FormGroup>
-              <FormControl>
-                <InputLabel htmlFor='username-input'>
-                  Write message here
-                </InputLabel>
-                <Input
-                  id='msg-input'
-                  value={msg}
-                  onChange={(e) => setMsg(e.target.value)}
-                />
-              </FormControl>
 
-              <Button type='submit'>Submit</Button>
-            </FormGroup>
-          </div>
-        </FormControl>
-      </form>
-    </div>
+  //onChange={(e) => setMsg(e.target.value)}
+  return (
+    <Box component='form' onSubmit={handleSubmitForm}>
+      <Grid2 container sx={{ padding: "8px" }}></Grid2>
+    </Box>
   );
 };
 
