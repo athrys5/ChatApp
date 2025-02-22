@@ -1,4 +1,4 @@
-import { Box, ThemeProvider } from "@mui/material";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { useState } from "react";
 import {
   HubConnection,
@@ -7,7 +7,6 @@ import {
 } from "@microsoft/signalr";
 import { IMessage } from "./interfaces/GenericInterfaces";
 import ChatRoom from "./components/ChatRoom";
-import SendMessage from "./components/SendMessage";
 import Login from "./components/LoginComponents/Login";
 import theme from "./themes/theme";
 import ModeSwitcher from "./components/ModeSwitcher";
@@ -62,15 +61,13 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Box>
         <ModeSwitcher />
         {!connection ? (
           <Login joinChatRoom={joinChatRoom} />
         ) : (
-          <div>
-            <ChatRoom messages={messages} />
-            <SendMessage sendMessage={sendMessage} />
-          </div>
+          <ChatRoom messages={messages} sendMessage={sendMessage} />
         )}
       </Box>
     </ThemeProvider>
