@@ -40,7 +40,7 @@ const ChatRoom: React.FC<IChatRoomProps> = ({ messages, sendMessage }) => {
           }}
         >
           <Typography
-            color='text.primaryChannel'
+            color={theme.palette.text.primary}
             fontSize={"0.8rem"}
             sx={{
               letterSpacing: 0.5,
@@ -56,10 +56,25 @@ const ChatRoom: React.FC<IChatRoomProps> = ({ messages, sendMessage }) => {
           padding: "10px 4px 10px 6px",
           display: "flex",
           flexDirection: "column",
+          height: "100vh",
         }}
       >
-        <MessageContainer messages={messages} />
-        <SendMessage sendMessage={sendMessage} />
+        <Box
+          sx={{
+            flex: 1,
+            overflowY: "auto",
+            marginBottom: "16px",
+          }}
+        >
+          <MessageContainer messages={messages} />
+        </Box>
+        <Box
+          sx={{
+            flexShrink: 0,
+          }}
+        >
+          <SendMessage sendMessage={sendMessage} />
+        </Box>
       </Grid2>
     </Grid2>
   );

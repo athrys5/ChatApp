@@ -1,6 +1,9 @@
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
+  typography: {
+    fontFamily: "'Roboto', sans-serif",
+  },
   colorSchemes: {
     light: {
       palette: {
@@ -17,7 +20,7 @@ const theme = createTheme({
           light: "",
         },
         text: {
-          primaryChannel: "#2A2D32",
+          primary: "#2A2D32",
         },
       },
     },
