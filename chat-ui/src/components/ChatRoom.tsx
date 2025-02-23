@@ -14,6 +14,7 @@ interface IChatRoomProps {
   sendMessage: (message: string) => Promise<void>;
   username: string;
   chatroom: string;
+  connectedUsers: string[];
 }
 
 const ChatRoom: React.FC<IChatRoomProps> = ({
@@ -21,6 +22,7 @@ const ChatRoom: React.FC<IChatRoomProps> = ({
   sendMessage,
   username,
   chatroom,
+  connectedUsers,
 }) => {
   const theme = useTheme();
   const { mode, setMode } = useColorScheme();
@@ -38,7 +40,10 @@ const ChatRoom: React.FC<IChatRoomProps> = ({
       >
         <Box
           sx={{
-            padding: "6px",
+            display: "flex",
+            width: "100%",
+            padding: "10px",
+            marginBottom: "10px",
             borderRadius: "5px",
             backgroundColor:
               mode === "light"
@@ -53,9 +58,42 @@ const ChatRoom: React.FC<IChatRoomProps> = ({
               letterSpacing: 0.5,
             }}
           >
-            ACTIVE USERS - 1
+            ACTIVE USERS - {connectedUsers.length}
           </Typography>
         </Box>
+        {connectedUsers.map((user, index) => (
+          <Box
+            key={index}
+            sx={{
+              display: "flex",
+              width: "100%",
+              alignItems: "center",
+              gap: "10px",
+              marginBottom: "10px",
+            }}
+          >
+            <Box
+              sx={{
+                width: "2.5rem",
+                height: "2.5rem",
+                borderRadius: "50%",
+                backgroundColor:
+                  mode === "light"
+                    ? theme.palette.secondary.dark
+                    : theme.palette.secondary.light,
+              }}
+            />
+            <Typography
+              color={theme.palette.text.primary}
+              fontSize={"0.8rem"}
+              sx={{
+                letterSpacing: 0.5,
+              }}
+            >
+              {user}
+            </Typography>
+          </Box>
+        ))}
       </Grid2>
       <Grid2
         size={10}
