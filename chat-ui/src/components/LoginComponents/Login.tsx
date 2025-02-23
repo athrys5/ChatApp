@@ -1,16 +1,23 @@
-import { Box, Button, Container, CssBaseline, Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, Button, Container, Typography } from "@mui/material";
 import MessageIcon from "../../icons/MessageIcon";
 import LoginTextField from "./LoginTextField";
 import { standardButtonStyle } from "../../styles/styles";
+
 interface ILoginProps {
   joinChatRoom: (username: string, chatroom: string) => Promise<void>;
+  username: string;
+  chatroom: string;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
+  setChatroom: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Login: React.FC<ILoginProps> = ({ joinChatRoom }) => {
-  const [username, setUsername] = useState<string>("");
-  const [chatroom, setChatroom] = useState<string>("");
-
+const Login: React.FC<ILoginProps> = ({
+  joinChatRoom,
+  username,
+  chatroom,
+  setUsername,
+  setChatroom,
+}) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault(); // Previeni il ricaricamento della pagina
     joinChatRoom(username, chatroom);

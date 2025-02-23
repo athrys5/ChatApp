@@ -46,6 +46,7 @@ const SendMessage: React.FC<ISendMessageProps> = ({ sendMessage }) => {
           color: theme.palette.text.primary,
           fontFamily: theme.typography.fontFamily,
           fontSize: "1rem",
+          cursor: "pointer",
         }}
       >
         <Box

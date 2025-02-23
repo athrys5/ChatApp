@@ -12,9 +12,16 @@ import SendMessage from "./SendMessage";
 interface IChatRoomProps {
   messages: IMessage[];
   sendMessage: (message: string) => Promise<void>;
+  username: string;
+  chatroom: string;
 }
 
-const ChatRoom: React.FC<IChatRoomProps> = ({ messages, sendMessage }) => {
+const ChatRoom: React.FC<IChatRoomProps> = ({
+  messages,
+  sendMessage,
+  username,
+  chatroom,
+}) => {
   const theme = useTheme();
   const { mode, setMode } = useColorScheme();
 
@@ -66,7 +73,7 @@ const ChatRoom: React.FC<IChatRoomProps> = ({ messages, sendMessage }) => {
             marginBottom: "16px",
           }}
         >
-          <MessageContainer messages={messages} />
+          <MessageContainer messages={messages} username={username} />
         </Box>
         <Box
           sx={{
