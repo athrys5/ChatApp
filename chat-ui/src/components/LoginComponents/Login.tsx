@@ -1,7 +1,8 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Grid2, Typography } from "@mui/material";
 import MessageIcon from "../../icons/MessageIcon";
 import LoginTextField from "./LoginTextField";
 import { standardButtonStyle } from "../../styles/styles";
+import { useState } from "react";
 
 interface ILoginProps {
   joinChatRoom: (username: string, chatroom: string) => Promise<void>;
@@ -18,51 +19,66 @@ const Login: React.FC<ILoginProps> = ({
   setUsername,
   setChatroom,
 }) => {
+  const [showRegisterForm, setShowRegisterForm] = useState<boolean>(false);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault(); // Previeni il ricaricamento della pagina
     joinChatRoom(username, chatroom);
   };
 
-  return (
-    <Container component='main' maxWidth='xs'>
-      <Box
-        sx={{
-          padding: "32px",
-          boxSizing: "border-box",
-          border: "1px solid transparent",
-          borderRadius: "1em",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <MessageIcon width='200' height='200' currentColor='#8D51E1' />
+  const signInComponent = (
+    <Grid2 container justifyContent='center'>
+      <Grid2 size={{ xs: 12, md: 6, lg: 4 }}>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Typography variant='h3' fontWeight='500'>
             Sign in
           </Typography>
-
-          <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <LoginTextField onChange={setUsername} inputName='username' />
-            <LoginTextField onChange={setChatroom} inputName='chatroom' />
-            <Box sx={{ mt: 2 }}>
-              <Button
-                type='submit'
-                variant='contained'
-                fullWidth
-                sx={standardButtonStyle}
-              >
-                <Typography fontWeight='500'>Join</Typography>
-              </Button>
-            </Box>
-            {/*   <Typography color='primary'>Register here</Typography> */}
+        </Box>
+        <Box component='form' onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <LoginTextField onChange={setUsername} inputName='username' />
+          <LoginTextField onChange={setChatroom} inputName='chatroom' />
+          <Box sx={{ mt: 2 }}>
+            <Button
+              type='submit'
+              variant='contained'
+              fullWidth
+              sx={standardButtonStyle}
+            >
+              <Typography fontWeight='500'>Join</Typography>
+            </Button>
+          </Box>
+          <Box
+            sx={{ cursor: "pointer", paddingTop: "4px" }}
+            onClick={() => setShowRegisterForm((prev) => !prev)} //todo : change render logic
+          >
+            <Typography color='primary'>
+              Not registered yet ? Click here
+            </Typography>
           </Box>
         </Box>
-      </Box>
-    </Container>
+      </Grid2>
+      {showRegisterForm ? (
+        <Grid2 size={{ xs: 12, md: 6, lg: 4 }}>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Typography variant='h3' fontWeight='500'>
+              Register
+            </Typography>
+          </Box>
+        </Grid2>
+      ) : null}
+    </Grid2>
+  );
+
+  return (
+    <Grid2 container sx={{ padding: "16px" }}>
+      <Grid2
+        size={12}
+        sx={{ display: "flex", justifyContent: "center", marginTop: "5%" }}
+      >
+        <MessageIcon width='200' height='200' currentColor='#8D51E1' />
+      </Grid2>
+      <Grid2 size={12}>{signInComponent}</Grid2>
+    </Grid2>
   );
 };
 
