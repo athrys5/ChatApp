@@ -1,6 +1,9 @@
-﻿namespace ChatApp.Data
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace ChatApp.Data
 {
-    public class ApplicationUser
+    public class ApplicationUser : IdentityUser
     {
+        //table that represent the user
     }
 }

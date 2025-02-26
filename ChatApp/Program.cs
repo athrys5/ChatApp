@@ -1,7 +1,9 @@
 
+using System.Security.Claims;
 using ChatApp.Data;
 using ChatApp.Hubs;
 using ChatApp.Service;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,9 +15,14 @@ namespace ChatApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            var connectionString = builder.Configuration.GetConnectionString("") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
             builder.Services.AddDbContext<ApplicationDbContext>(options  => options.UseSqlServer(connectionString));
+
+            builder.Services.AddAuthorization();
+            builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
 
             // Add services to the container.
             builder.Services.AddSignalR();
@@ -53,6 +60,23 @@ namespace ChatApp
 
             app.UseCors("chat-ui"); // Place before MapHub
             app.MapHub<ChatHub>("/Chat");
+
+            app.MapIdentityApi<ApplicationUser>();
+
+            app.MapPost("/logout", async (SignInManager<ApplicationUser> signInManager) =>
+            {
+
+                await signInManager.SignOutAsync();
+                return Results.Ok();
+
+            }).RequireAuthorization();
+
+
+            app.MapGet("/pingauth", (ClaimsPrincipal user) =>
+            {
+                var email = user.FindFirstValue(ClaimTypes.Email); // get the user's email from the claim
+                return Results.Json(new { Email = email }); ; // return the email as a plain text response
+            }).RequireAuthorization();
 
             app.MapControllers();
 
