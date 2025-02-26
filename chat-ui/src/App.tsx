@@ -10,6 +10,7 @@ import ChatRoom from "./components/ChatRoom";
 import Login from "./components/LoginComponents/Login";
 import theme from "./themes/theme";
 import ModeSwitcher from "./components/ModeSwitcher";
+import AuthorizeView from "./components/LoginComponents/AuthorizeView";
 
 function App() {
   const [username, setUsername] = useState<string>("");
@@ -91,13 +92,15 @@ function App() {
       <Box>
         <ModeSwitcher />
         {!connection ? (
-          <Login
-            joinChatRoom={joinChatRoom}
-            username={username}
-            chatroom={chatroom}
-            setUsername={setUsername}
-            setChatroom={setChatroom}
-          />
+          <AuthorizeView>
+            <Login
+              joinChatRoom={joinChatRoom}
+              username={username}
+              chatroom={chatroom}
+              setUsername={setUsername}
+              setChatroom={setChatroom}
+            />
+          </AuthorizeView>
         ) : (
           <ChatRoom
             messages={messages}
