@@ -64,7 +64,7 @@ function Register() {
         </Box>
         <Box
           sx={{ cursor: "pointer", paddingTop: "4px" }}
-          onClick={navigateToRegister}
+          onClick={navigateToLogin}
         >
           <Typography color='primary'>Already registered? Sign in</Typography>
         </Box>
