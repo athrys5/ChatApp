@@ -17,7 +17,7 @@ function AuthorizeView(props: { children: React.ReactNode }) {
   useEffect(() => {
     // Get the cookie value
     let retryCount = 0; // initialize the retry count
-    let maxRetries = 10; // set the maximum number of retries
+    let maxRetries = 1; // set the maximum number of retries
     let delay: number = 1000; // set the delay in milliseconds
 
     // define a delay function that returns a promise
@@ -89,11 +89,7 @@ function AuthorizeView(props: { children: React.ReactNode }) {
         </>
       );
     } else {
-      return (
-        <>
-          <Navigate to='/login' />
-        </>
-      );
+      return <>{props.children}</>;
     }
   }
 }

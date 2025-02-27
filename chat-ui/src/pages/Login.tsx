@@ -4,6 +4,7 @@ import LoginTextField from "../components/LoginComponents/LoginTextField";
 import { standardButtonStyle } from "../styles/styles";
 import MessageIcon from "../icons/MessageIcon";
 import { useNavigate } from "react-router";
+import { loginUser } from "../services/AuthService";
 
 interface ILoginProps {
   joinChatRoom: (username: string, chatroom: string) => Promise<void>;
@@ -20,12 +21,20 @@ function Login() {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSignIn = (e: React.FormEvent) => {
-    e.preventDefault(); // Previeni il ricaricamento della pagina
-    /*  joinChatRoom(username, chatroom); */
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
     setError(null);
+
+    try {
+      const response = await loginUser(email, password);
+      console.log("Login successful:", response);
+      navigate("/");
+    } catch (error) {
+      setError("Login failed. Please try again.");
+      console.error("Login error:", error);
+    }
   };
 
   const signInComponent = (

@@ -18,12 +18,12 @@ function Register() {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null); // Reset error state
+    setError(null);
 
     try {
       const response = await registerUser(email, password);
       console.log("Registration successful:", response);
-      navigate("/login"); // Redirect to login page after successful registration
+      navigate("/login");
     } catch (error) {
       setError("Registration failed. Please try again.");
       console.error("Registration error:", error);
