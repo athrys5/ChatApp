@@ -1,16 +1,8 @@
-import {
-  Box,
-  Button,
-  Container,
-  Grow,
-  Grid2,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import MessageIcon from "../../icons/MessageIcon";
-import LoginTextField from "./LoginTextField";
-import { standardButtonStyle } from "../../styles/styles";
+import { Box, Button, Grow, Grid2, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
+import LoginTextField from "../components/LoginComponents/LoginTextField";
+import { standardButtonStyle } from "../styles/styles";
+import MessageIcon from "../icons/MessageIcon";
 
 interface ILoginProps {
   joinChatRoom: (username: string, chatroom: string) => Promise<void>;
@@ -20,13 +12,13 @@ interface ILoginProps {
   setChatroom: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Login: React.FC<ILoginProps> = ({
+function Login({
   joinChatRoom,
   username,
   chatroom,
   setUsername,
   setChatroom,
-}) => {
+}: ILoginProps) {
   const [showRegisterForm, setShowRegisterForm] = useState<boolean>(false);
 
   const theme = useTheme();
@@ -52,6 +44,7 @@ const Login: React.FC<ILoginProps> = ({
             </Box>
             <Box component='form' onSubmit={handleSignIn} sx={{ mt: 1 }}>
               <LoginTextField onChange={setUsername} inputName='username' />
+              <LoginTextField onChange={setUsername} inputName='password' />
               <LoginTextField onChange={setChatroom} inputName='chatroom' />
               <Box sx={{ mt: 2 }}>
                 <Button
@@ -135,6 +128,6 @@ const Login: React.FC<ILoginProps> = ({
       <Grid2 size={12}>{signInComponent}</Grid2>
     </Grid2>
   );
-};
+}
 
 export default Login;

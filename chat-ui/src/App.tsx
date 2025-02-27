@@ -7,10 +7,12 @@ import {
 } from "@microsoft/signalr";
 import { IMessage } from "./interfaces/GenericInterfaces";
 import ChatRoom from "./components/ChatRoom";
-import Login from "./components/LoginComponents/Login";
+
 import theme from "./themes/theme";
 import ModeSwitcher from "./components/ModeSwitcher";
 import AuthorizeView from "./components/LoginComponents/AuthorizeView";
+import { createBrowserRouter, RouterProvider } from "react-router";
+import { CLIENT_ROUTES } from "./costants/ClientRoutes";
 
 function App() {
   const [username, setUsername] = useState<string>("");
@@ -86,12 +88,15 @@ function App() {
     };
   }, [connection]);
 
+  const router = createBrowserRouter(CLIENT_ROUTES);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box>
-        <ModeSwitcher />
-        {!connection ? (
+        {/* <ModeSwitcher /> */}
+        <RouterProvider router={router} />
+        {/*  {!connection ? (
           <AuthorizeView>
             <Login
               joinChatRoom={joinChatRoom}
@@ -109,7 +114,7 @@ function App() {
             chatroom={chatroom}
             connectedUsers={connectedUsers}
           />
-        )}
+        )} */}
       </Box>
     </ThemeProvider>
   );

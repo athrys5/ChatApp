@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
+import { Navigate } from "react-router";
 
 const UserContext = createContext({});
 
@@ -88,7 +89,11 @@ function AuthorizeView(props: { children: React.ReactNode }) {
         </>
       );
     } else {
-      return <></>;
+      return (
+        <>
+          <Navigate to='/login' />
+        </>
+      );
     }
   }
 }
@@ -99,7 +104,7 @@ export function AuthorizedUser(props: { value: string }) {
 
   // Display the username in a h1 tag
   if (props.value == "email") return <>{user.email}</>;
-  else return;
+  else return <></>;
 }
 
 export default AuthorizeView;
