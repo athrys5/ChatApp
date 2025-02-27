@@ -3,8 +3,8 @@ import { useState } from "react";
 import LoginTextField from "../components/LoginComponents/LoginTextField";
 import { standardButtonStyle } from "../styles/styles";
 import MessageIcon from "../icons/MessageIcon";
-import { useNavigate } from "react-router";
 import { loginUser } from "../services/AuthService";
+import useNavigateCustom from "../helpers/navigateHelper";
 
 interface ILoginProps {
   joinChatRoom: (username: string, chatroom: string) => Promise<void>;
@@ -15,7 +15,7 @@ interface ILoginProps {
 }
 
 function Login() {
-  const navigate = useNavigate();
+  const { navigateToHome, navigateToRegister } = useNavigateCustom();
 
   const theme = useTheme();
 
@@ -30,7 +30,7 @@ function Login() {
     try {
       const response = await loginUser(email, password);
       console.log("Login successful:", response);
-      navigate("/");
+      navigateToHome();
     } catch (error) {
       setError("Login failed. Please try again.");
       console.error("Login error:", error);
@@ -64,7 +64,7 @@ function Login() {
           </Box>
           <Box
             sx={{ cursor: "pointer", paddingTop: "4px" }}
-            onClick={() => {}} //todo : change render logic
+            onClick={navigateToRegister} //todo : change render logic
           >
             <Typography color='primary'>
               Not registered yet ? Click here

@@ -16,7 +16,7 @@ const CLIENT_PAGES = {
 
 const CLIENT_PATH_PARAMETERS = { Id: "/:id" };
 
-const CLIENT_PAGES_PATH = {
+export const CLIENT_PAGES_PATH = {
   Home: "/",
   Login: `/${CLIENT_PAGES.Login.path}`,
   Chatroom: `/${CLIENT_PAGES.Chatroom.path}${CLIENT_PATH_PARAMETERS.Id}`,

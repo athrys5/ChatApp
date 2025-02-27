@@ -5,6 +5,7 @@ import { standardButtonStyle } from "../styles/styles";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { registerUser } from "../services/AuthService";
+import useNavigateCustom from "../helpers/navigateHelper";
 
 function Register() {
   const theme = useTheme();
@@ -14,7 +15,7 @@ function Register() {
   const [error, setError] = useState<string | null>(null);
   /*  const [confirmPassword, setConfirmPassword] = useState<string>(""); */
 
-  const navigate = useNavigate();
+  const { navigateToLogin, navigateToRegister } = useNavigateCustom();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +24,7 @@ function Register() {
     try {
       const response = await registerUser(email, password);
       console.log("Registration successful:", response);
-      navigate("/login");
+      navigateToLogin();
     } catch (error) {
       setError("Registration failed. Please try again.");
       console.error("Registration error:", error);
@@ -61,7 +62,10 @@ function Register() {
             </Typography>
           </Button>
         </Box>
-        <Box sx={{ cursor: "pointer", paddingTop: "4px" }} onClick={() => {}}>
+        <Box
+          sx={{ cursor: "pointer", paddingTop: "4px" }}
+          onClick={navigateToRegister}
+        >
           <Typography color='primary'>Already registered? Sign in</Typography>
         </Box>
       </Box>
