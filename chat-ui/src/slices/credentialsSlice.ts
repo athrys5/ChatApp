@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface ICredentials {
   email: string;
-  username: string;
   password: string;
 }
 
@@ -16,4 +15,4 @@ export const credentialsSlice = createSlice({
 
 export const {} = credentialsSlice.actions;
 
-export default credentialsSlice.reducer;
+export const credentialsSliceReducer = credentialsSlice.reducer;

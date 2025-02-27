@@ -3,6 +3,7 @@ import { useState } from "react";
 import LoginTextField from "../components/LoginComponents/LoginTextField";
 import { standardButtonStyle } from "../styles/styles";
 import MessageIcon from "../icons/MessageIcon";
+import { useNavigate } from "react-router";
 
 interface ILoginProps {
   joinChatRoom: (username: string, chatroom: string) => Promise<void>;
@@ -12,20 +13,17 @@ interface ILoginProps {
   setChatroom: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Login({
-  joinChatRoom,
-  username,
-  chatroom,
-  setUsername,
-  setChatroom,
-}: ILoginProps) {
-  const [showRegisterForm, setShowRegisterForm] = useState<boolean>(false);
+function Login() {
+  const navigate = useNavigate();
 
   const theme = useTheme();
 
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault(); // Previeni il ricaricamento della pagina
-    joinChatRoom(username, chatroom);
+    /*  joinChatRoom(username, chatroom); */
   };
 
   const handleRegister = (e: React.FormEvent) => {
@@ -34,85 +32,39 @@ function Login({
 
   const signInComponent = (
     <Grid2 container justifyContent='center' spacing={4}>
-      {!showRegisterForm ? (
-        <Grow in={!showRegisterForm} key='signIn'>
-          <Grid2 size={{ xs: 8, md: 4, lg: 3, xl: 2 }}>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <Typography variant='h3' fontWeight='500'>
-                Sign in
+      <Grid2 size={{ xs: 8, md: 4, lg: 3, xl: 2 }}>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Typography variant='h3' fontWeight='500'>
+            Sign in
+          </Typography>
+        </Box>
+        <Box component='form' onSubmit={handleSignIn} sx={{ mt: 1 }}>
+          <LoginTextField onChange={setEmail} inputName='email' />
+          <LoginTextField onChange={setPassword} inputName='password' />
+          {/*           <LoginTextField onChange={} inputName='chatroom' />
+           */}
+          <Box sx={{ mt: 2 }}>
+            <Button
+              type='submit'
+              variant='contained'
+              fullWidth
+              sx={standardButtonStyle}
+            >
+              <Typography fontWeight='500' letterSpacing={0.5}>
+                Join
               </Typography>
-            </Box>
-            <Box component='form' onSubmit={handleSignIn} sx={{ mt: 1 }}>
-              <LoginTextField onChange={setUsername} inputName='username' />
-              <LoginTextField onChange={setUsername} inputName='password' />
-              <LoginTextField onChange={setChatroom} inputName='chatroom' />
-              <Box sx={{ mt: 2 }}>
-                <Button
-                  type='submit'
-                  variant='contained'
-                  fullWidth
-                  sx={standardButtonStyle}
-                >
-                  <Typography fontWeight='500' letterSpacing={0.5}>
-                    Join
-                  </Typography>
-                </Button>
-              </Box>
-              <Box
-                sx={{ cursor: "pointer", paddingTop: "4px" }}
-                onClick={() => setShowRegisterForm((prev) => !prev)} //todo : change render logic
-              >
-                <Typography color='primary'>
-                  Not registered yet ? Click here
-                </Typography>
-              </Box>
-            </Box>
-          </Grid2>
-        </Grow>
-      ) : (
-        <Grow in={showRegisterForm} key='register'>
-          <Grid2 size={{ xs: 8, md: 4, lg: 3, xl: 2 }}>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <Typography variant='h3' fontWeight='500'>
-                Register
-              </Typography>
-            </Box>
-            <Box component='form' onSubmit={handleRegister} sx={{ mt: 1 }}>
-              <LoginTextField onChange={setUsername} inputName='username' />
-              <LoginTextField
-                onChange={setChatroom}
-                inputName='password'
-                type='password'
-              />
-              <LoginTextField
-                onChange={setUsername}
-                inputName='email'
-                type='email'
-              />
-              <Box sx={{ mt: 2 }}>
-                <Button
-                  type='submit'
-                  variant='contained'
-                  fullWidth
-                  sx={standardButtonStyle}
-                >
-                  <Typography fontWeight='500' letterSpacing={0.5}>
-                    Confirm
-                  </Typography>
-                </Button>
-              </Box>
-              <Box
-                sx={{ cursor: "pointer", paddingTop: "4px" }}
-                onClick={() => setShowRegisterForm((prev) => !prev)}
-              >
-                <Typography color='primary'>
-                  Already registered? Sign in
-                </Typography>
-              </Box>
-            </Box>
-          </Grid2>
-        </Grow>
-      )}
+            </Button>
+          </Box>
+          <Box
+            sx={{ cursor: "pointer", paddingTop: "4px" }}
+            onClick={() => {}} //todo : change render logic
+          >
+            <Typography color='primary'>
+              Not registered yet ? Click here
+            </Typography>
+          </Box>
+        </Box>
+      </Grid2>
     </Grid2>
   );
 

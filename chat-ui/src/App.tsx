@@ -94,27 +94,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box>
-        {/* <ModeSwitcher /> */}
         <RouterProvider router={router} />
-        {/*  {!connection ? (
-          <AuthorizeView>
-            <Login
-              joinChatRoom={joinChatRoom}
-              username={username}
-              chatroom={chatroom}
-              setUsername={setUsername}
-              setChatroom={setChatroom}
-            />
-          </AuthorizeView>
-        ) : (
-          <ChatRoom
-            messages={messages}
-            sendMessage={sendMessage}
-            username={username}
-            chatroom={chatroom}
-            connectedUsers={connectedUsers}
-          />
-        )} */}
       </Box>
     </ThemeProvider>
   );

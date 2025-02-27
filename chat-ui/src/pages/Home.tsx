@@ -1,16 +1,7 @@
-import AuthorizeView, {
-  AuthorizedUser,
-} from "../components/LoginComponents/AuthorizeView";
-import LogoutLink from "../components/LoginComponents/Logout";
+import { Outlet } from "react-router";
 
-export default function Home() {
-  return (
-    <AuthorizeView>
-      <span>
-        <LogoutLink>
-          Logout <AuthorizedUser value='email' />
-        </LogoutLink>
-      </span>
-    </AuthorizeView>
-  );
+function Home() {
+  return <Outlet />;
 }
+
+export default Home;
