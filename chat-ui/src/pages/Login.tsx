@@ -20,14 +20,12 @@ function Login() {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState(null);
 
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault(); // Previeni il ricaricamento della pagina
     /*  joinChatRoom(username, chatroom); */
-  };
-
-  const handleRegister = (e: React.FormEvent) => {
-    e.preventDefault();
+    setError(null);
   };
 
   const signInComponent = (
