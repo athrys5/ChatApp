@@ -4,18 +4,30 @@ import LoginTextField from "../components/LoginComponents/LoginTextField";
 import { standardButtonStyle } from "../styles/styles";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { registerUser } from "../services/AuthService";
 
 function Register() {
   const theme = useTheme();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+  /*  const [confirmPassword, setConfirmPassword] = useState<string>(""); */
 
   const navigate = useNavigate();
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null); // Reset error state
+
+    try {
+      const response = await registerUser(email, password);
+      console.log("Registration successful:", response);
+      navigate("/login"); // Redirect to login page after successful registration
+    } catch (error) {
+      setError("Registration failed. Please try again.");
+      console.error("Registration error:", error);
+    }
   };
 
   const registerComponent = (
