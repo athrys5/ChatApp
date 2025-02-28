@@ -1,3 +1,4 @@
+import Chatroom from "../pages/ChatRoom";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
@@ -30,7 +31,7 @@ export const CLIENT_ROUTES = [
     children: [
       { path: CLIENT_PAGES_PATH.Login, element: <Login /> },
       { path: CLIENT_PAGES_PATH.Register, element: <Register /> },
-      { path: CLIENT_PAGES_PATH.Chatroom, element: <></> },
+      { path: CLIENT_PAGES_PATH.Chatroom, element: <Chatroom /> },
     ],
   },
 ];
