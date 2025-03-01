@@ -63,7 +63,7 @@ function Login() {
       console.log(e);
     }
   };
-
+  console.log(connection);
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);

@@ -5,25 +5,10 @@ import {
   useColorScheme,
   useTheme,
 } from "@mui/material";
-import { IMessage } from "../interfaces/GenericInterfaces";
 import MessageContainer from "./MessageContainer";
 import SendMessage from "./SendMessage";
 
-interface IChatRoomProps {
-  messages: IMessage[];
-  sendMessage: (message: string) => Promise<void>;
-  username: string;
-  chatroom: string;
-  connectedUsers: string[];
-}
-
-const ChatRoom: React.FC<IChatRoomProps> = ({
-  messages,
-  sendMessage,
-  username,
-  chatroom,
-  connectedUsers,
-}) => {
+function ChatRoom() {
   const theme = useTheme();
   const { mode, setMode } = useColorScheme();
 
@@ -123,6 +108,6 @@ const ChatRoom: React.FC<IChatRoomProps> = ({
       </Grid2>
     </Grid2>
   );
-};
+}
 
 export default ChatRoom;

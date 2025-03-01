@@ -28,10 +28,17 @@ export const CLIENT_ROUTES = [
   {
     path: CLIENT_PAGES_PATH.Home,
     element: <Home />,
-    children: [
-      { path: CLIENT_PAGES_PATH.Login, element: <Login /> },
-      { path: CLIENT_PAGES_PATH.Register, element: <Register /> },
-      { path: CLIENT_PAGES_PATH.Chatroom, element: <Chatroom /> },
-    ],
+  },
+  {
+    path: CLIENT_PAGES_PATH.Login,
+    element: <Login />,
+  },
+  {
+    path: CLIENT_PAGES_PATH.Register,
+    element: <Register />,
+  },
+  {
+    path: CLIENT_PAGES_PATH.Chatroom,
+    element: <Chatroom />,
   },
 ];
